@@ -53,52 +53,52 @@ public class SessionFilter implements Filter {
 		String urlpath = uri.substring(ctx_path.length());
 
 		//如果要验证用户,此句一定要注释掉
-//		chain.doFilter(request, response);
+		chain.doFilter(request, response);
 		//如果为登陆界面不进行session验证直接向下执行并返回
-		if(urlpath.equals("/login") || urlpath.equals("/ugametime") || urlpath.contains("/js/") || urlpath.contains("/css/") || urlpath.contains("/img/")
-				|| urlpath.equals("/register") || urlpath.equals("/fastloginregist") || urlpath.equals("/info_study.html") || urlpath.equals("/info_notice.html") || urlpath.equals("/infostudy")
-				|| urlpath.equals("/gmAddDummyData"))
-		{
-			chain.doFilter(request, response);
-			return;
-		}
-		
-		//如果session为空直接返回1001错误
-		if(req.getSession(false)==null){
-			U.p(res, JSONMsg.info(1001));
-			return;
-		}
-		
-		String sessionid = req.getSession(false).getId();
-		String jsessionid = null;
-		Cookie[] cookies = req.getCookies();
-		//如果cookies不为空，去验证客户端传来的cookie中的sessionid
-		//不相等返回1001
-		if(cookies!=null)
-		{
-        	for (int i = 0; i < cookies.length; i++) 
-	        {            
-	        	Cookie c = cookies[i];            
-	        	if(c.getName().equals("JSESSIONID")){
-	        			jsessionid = c.getValue();
-	        			break;
-	        	}
-	        }
-		}else{
+//		if(urlpath.equals("/login") || urlpath.equals("/ugametime") || urlpath.contains("/js/") || urlpath.contains("/css/") || urlpath.contains("/img/")
+//				|| urlpath.equals("/register") || urlpath.equals("/fastloginregist") || urlpath.equals("/info_study.html") || urlpath.equals("/info_notice.html") || urlpath.equals("/infostudy")
+//				|| urlpath.equals("/gmAddDummyData"))
+//		{
+//			chain.doFilter(request, response);
+//			return;
+//		}
+//		
+//		//如果session为空直接返回1001错误
+//		if(req.getSession(false)==null){
 //			U.p(res, JSONMsg.info(1001));
-			RequestDispatcher dis = request.getRequestDispatcher("/login.html");
-			dis.forward(request, response);
-			return;
-		}
-		
-		//判断sessionid与客户端cookieid是否相等
-		if(sessionid.equals(jsessionid))
-			chain.doFilter(request, response);
-		else{
-//			U.p(res,JSONMsg.info(1001));
-			RequestDispatcher dis = request.getRequestDispatcher("/login.html");
-			dis.forward(request, response);
-		}
+//			return;
+//		}
+//		
+//		String sessionid = req.getSession(false).getId();
+//		String jsessionid = null;
+//		Cookie[] cookies = req.getCookies();
+//		//如果cookies不为空，去验证客户端传来的cookie中的sessionid
+//		//不相等返回1001
+//		if(cookies!=null)
+//		{
+//        	for (int i = 0; i < cookies.length; i++) 
+//	        {            
+//	        	Cookie c = cookies[i];            
+//	        	if(c.getName().equals("JSESSIONID")){
+//	        			jsessionid = c.getValue();
+//	        			break;
+//	        	}
+//	        }
+//		}else{
+////			U.p(res, JSONMsg.info(1001));
+//			RequestDispatcher dis = request.getRequestDispatcher("/login.html");
+//			dis.forward(request, response);
+//			return;
+//		}
+//		
+//		//判断sessionid与客户端cookieid是否相等
+//		if(sessionid.equals(jsessionid))
+//			chain.doFilter(request, response);
+//		else{
+////			U.p(res,JSONMsg.info(1001));
+//			RequestDispatcher dis = request.getRequestDispatcher("/login.html");
+//			dis.forward(request, response);
+//		}
 		
 	}
 

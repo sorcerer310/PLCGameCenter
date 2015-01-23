@@ -25,7 +25,7 @@ public class PLC_ReceiveSerial extends HttpServlet {
 	private final byte PLC_RECEIVE_BED_VIDEO = 1;									//躺床传第一个视频到手机
 	private final byte PLC_RECEIVE_DRAWER_VIDEO = 2;								//床抽屉触发手机视频
 	private final byte PLC_RECEIVE_KNOCK_DOOR_VIDEO = 3;							//敲门触发手机视频								
-	private final byte PLC_RECEIVE_WATERING_VIDEO = 4;							//浇花触发手机视频
+	private final byte PLC_RECEIVE_FLOWER_VIDEO = 4;							//浇花触发手机视频
 	private final byte PLC_RECEIVE_PLAY_VIDEO = 5;								//从plc处接到播放视频的指令
 	
     /**
@@ -40,8 +40,13 @@ public class PLC_ReceiveSerial extends HttpServlet {
 	 * @see Servlet#init(ServletConfig)
 	 */
 	public void init(ServletConfig config) throws ServletException {
+		System.out.println("PLC_ReceiveSerial is init");
 		cpi = CommPortInstance.getInstance();
 		cpi.initCommPort("COM2");
+		if(cpi.getSerialReader()==null){
+			System.out.println("comm port init fail");
+			return;
+		}
 		cpi.getSerialReader().setSerialReaderListener(new SerialReaderListener(){
 
 			@Override
@@ -53,7 +58,7 @@ public class PLC_ReceiveSerial extends HttpServlet {
 			@Override
 			public void readCompleted(int command) {
 				// TODO Auto-generated method stub
-				
+//				System.out.println(command);
 			}
 
 			@Override
@@ -71,7 +76,7 @@ public class PLC_ReceiveSerial extends HttpServlet {
 					//敲门视频
 					PLCGameStatus.set_PLC_STATUS_KNOCK_DOOR(true);
 					break;
-				case PLC_RECEIVE_WATERING_VIDEO:
+				case PLC_RECEIVE_FLOWER_VIDEO:
 					//浇花视频
 					PLCGameStatus.set_PLC_STATUS_WATERING(true);
 					break;
@@ -82,6 +87,7 @@ public class PLC_ReceiveSerial extends HttpServlet {
 				default:
 					break;
 				}
+				System.out.println(command);
 			}
 		});
 	}
