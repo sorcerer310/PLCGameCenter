@@ -6,6 +6,7 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -30,6 +31,8 @@ import com.sun.rowset.CachedRowSetImpl;
  */
 public class U {
 
+	public static Properties properties = new Properties();				//项目的配置数据,在随tomcat启动的PLC_ReceiveSerial的servlet中被初始化赋值
+	
 	/**
 	 * 通过字段名与request获得sql条件
 	 * @param request	request对象
