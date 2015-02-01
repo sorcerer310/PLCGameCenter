@@ -34,7 +34,7 @@ public class PLCGameStatus {
 		PLC_STATUS_BED = b;
 
 		try {
-			sendPostRequestByForm(url, setParams(user, "", "vpath:v001"));
+			sendPostRequestByForm(url, setParams(user, "", U.properties.getProperty("UrlParamV001")));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -48,7 +48,7 @@ public class PLCGameStatus {
 	public synchronized void set_PLC_STATUS_DRAWER(boolean b){
 		PLC_STATUS_DRAWER = b;
 		try {
-			sendPostRequestByForm(url, setParams(user, "", "vpath:v002"));
+			sendPostRequestByForm(url, setParams(user, "", U.properties.getProperty("UrlParamV002")));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -62,7 +62,7 @@ public class PLCGameStatus {
 	public synchronized void set_PLC_STATUS_KNOCK_DOOR(boolean b){
 		PLC_STATUS_KNOCK_DOOR = b;
 		try {
-			sendPostRequestByForm(url, setParams(user, "", "vpath:v003"));
+			sendPostRequestByForm(url, setParams(user, "", U.properties.getProperty("UrlParamV003")));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -78,7 +78,7 @@ public class PLCGameStatus {
 	public synchronized void set_PLC_STATUS_WATERING(boolean b){
 		PLC_STATUS_WATERING = b;
 		try {
-			sendPostRequestByForm(url, setParams(user, "", "vpath:v004"));
+			sendPostRequestByForm(url, setParams(user, "", U.properties.getProperty("UrlParamV004")));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -93,7 +93,7 @@ public class PLCGameStatus {
 	public synchronized void set_PLC_STATUS_PLAY_VIDEO(boolean b){
 		PLC_STATUS_PLAY_VIDEO = b;
 		try {
-			sendPostRequestByForm(url, setParams(user, "", "vpath:v005"));
+			sendPostRequestByForm(url, setParams(user, "", U.properties.getProperty("UrlParamV005")));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

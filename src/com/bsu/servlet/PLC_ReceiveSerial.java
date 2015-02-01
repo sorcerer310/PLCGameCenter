@@ -19,7 +19,7 @@ import com.bsu.system.tool.U;
 /**
  * Servlet implementation class PLC_ReceiveSerial
  */
-@WebServlet(description = "接收串口数据到程序中", urlPatterns = { "/PLC_ReceiveSerial" },loadOnStartup = 0)
+@WebServlet(description = "接收串口数据到程序中", urlPatterns = { "/PLC_ReceiveSerial" },loadOnStartup = 5)
 public class PLC_ReceiveSerial extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -47,11 +47,11 @@ public class PLC_ReceiveSerial extends HttpServlet {
 		//1:创建properties
 		InputStream inputStream = null;
 		try {
-			inputStream = this.getServletContext().getResourceAsStream("config.properties");
+			System.out.println(getClass().getClassLoader());
+			inputStream = getClass().getClassLoader().getResourceAsStream("config.properties");
 			U.properties.load(inputStream);
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
