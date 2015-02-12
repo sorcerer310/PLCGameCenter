@@ -33,10 +33,12 @@ public class PLC_SendSerial extends HttpServlet {
         sw = cpi.getSerialWriter();
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+		if(sw==null){
+			U.p(response, "comm port init fail");
+			return;
+		}
+		
 		String watch = U.getRS(request, "watch");
 		byte[] bytes;
 		if(watch.equals("yes"))
@@ -45,6 +47,9 @@ public class PLC_SendSerial extends HttpServlet {
 			bytes = new byte[]{SEND_PLC_WATCH_VIDEO_NO};
 		System.out.println("===========================send"+new String(bytes));
 		sw.writeCommand(bytes);
+		U.p(response,"data send success");
 	}
 
+	
+	
 }
