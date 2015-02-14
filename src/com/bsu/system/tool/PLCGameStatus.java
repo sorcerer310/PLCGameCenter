@@ -89,14 +89,19 @@ public class PLCGameStatus {
 		return PLC_STATUS_WATERING;
 	}
 	
-	
+	/**
+	 * 设置播放视频的状态PLC_STATU_PLAY_VIDEO状态为true.
+	 * 此处只设置状态,设置完状态用于识别是否在指定视频观看结束后发送指令到PLC
+	 * 只有当PLC_STATUS_PLAY_VIDEO为true时才会发送指令到plc,让女鬼复位玩家成功脱出
+	 * @param b
+	 */
 	public synchronized void set_PLC_STATUS_PLAY_VIDEO(boolean b){
 		PLC_STATUS_PLAY_VIDEO = b;
-		try {
-			sendPostRequestByForm(url, setParams(user, "", U.properties.getProperty("UrlParamV005")));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//		try {
+//			sendPostRequestByForm(url, setParams(user, "", U.properties.getProperty("UrlParamV005")));
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 
 	}
 	

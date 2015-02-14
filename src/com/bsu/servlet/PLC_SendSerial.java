@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.bsu.commport.CommPortInstance;
 import com.bsu.commport.SerialWriter;
+import com.bsu.system.tool.PLCGameStatus;
 import com.bsu.system.tool.U;
 
 /**
@@ -39,15 +40,18 @@ public class PLC_SendSerial extends HttpServlet {
 			return;
 		}
 		
-		String watch = U.getRS(request, "watch");
-		byte[] bytes;
-		if(watch.equals("yes"))
-			bytes = new byte[]{SEND_PLC_WATCH_VIDEO_YES};
-		else
-			bytes = new byte[]{SEND_PLC_WATCH_VIDEO_NO};
-		System.out.println("===========================send"+new String(bytes));
-		sw.writeCommand(bytes);
-		U.p(response,"data send success");
+		//只有PLC_STATUS_PLAY_VIDEO为true的时候才会向plc发送指令命令女鬼回位
+		if(PLCGameStatus.getInstance().get_PLC_STATUS_PLAY_VIDEO()){
+			String watch = U.getRS(request, "watch");
+			byte[] bytes;
+			if(watch.equals("yes"))
+				bytes = new byte[]{SEND_PLC_WATCH_VIDEO_YES};
+			else
+				bytes = new byte[]{SEND_PLC_WATCH_VIDEO_NO};
+			System.out.println("===========================send"+new String(bytes));
+			sw.writeCommand(bytes);
+			U.p(response,"data send success");
+		}
 	}
 
 	
