@@ -17,6 +17,8 @@ import com.bsu.system.tool.PLCGameStatus;
 import com.bsu.system.tool.U;
 
 /**
+ * 接收串口数据的servlce,该servlte随tomcat启动,并在init函数中初始化串口的初始化操作,只执行一次.
+ * 其他servlce需要使用串口时只需要获得CommPortInstance的实例就行,不必再对串口进行初始化
  * Servlet implementation class PLC_ReceiveSerial
  */
 @WebServlet(description = "接收串口数据到程序中", urlPatterns = { "/PLC_ReceiveSerial" },loadOnStartup = 5)
