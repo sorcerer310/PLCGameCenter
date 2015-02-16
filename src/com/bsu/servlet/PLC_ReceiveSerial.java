@@ -39,7 +39,6 @@ public class PLC_ReceiveSerial extends HttpServlet {
      */
     public PLC_ReceiveSerial() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
