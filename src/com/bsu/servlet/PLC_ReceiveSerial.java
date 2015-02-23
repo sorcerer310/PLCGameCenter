@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,18 +35,20 @@ public class PLC_ReceiveSerial extends HttpServlet {
 	private final byte PLC_RECEIVE_FLOWER_VIDEO = 4;								//浇花触发手机视频
 	private final byte PLC_RECEIVE_PLAY_VIDEO = 5;								//从plc处接到播放视频的指令
 	
+	private ServletConfig pconfig;
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
     public PLC_ReceiveSerial() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see Servlet#init(ServletConfig)
 	 */
 	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
 		//1:创建properties
 		InputStream inputStream = null;
 		try {
@@ -62,12 +65,17 @@ public class PLC_ReceiveSerial extends HttpServlet {
 		
 		//3:初始化串口监听部分
 		System.out.println("PLC_ReceiveSerial is init");
+		config.getServletContext().log("======================PLC_ReceiveSerial is init");
 		cpi = CommPortInstance.getInstance();
 		cpi.initCommPort("COM2");
 		if(cpi.getSerialReader()==null){
 			System.out.println("comm port init fail");
+			config.getServletContext().log("======================PLC_ReceiveSerial comm port init fail");
 			return;
 		}
+		
+//		final ServletConfig sc = config;
+		pconfig = config;
 		cpi.getSerialReader().setSerialReaderListener(new SerialReaderListener(){
 
 			@Override
@@ -84,6 +92,7 @@ public class PLC_ReceiveSerial extends HttpServlet {
 
 			@Override
 			public void readCompleted(byte command) {
+				pconfig.getServletContext().log("================comm port readCompleted:"+command);
 				switch(command){
 				case PLC_RECEIVE_BED_VIDEO:									
 					//躺床上视频
@@ -119,6 +128,7 @@ public class PLC_ReceiveSerial extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		plcgs.set_PLC_STATUS_BED(true);
+		System.out.println("PLC_ReceiveSerial is doGet");
 	}
 
 	/**

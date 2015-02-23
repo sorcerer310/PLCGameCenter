@@ -51,7 +51,8 @@ public class PLC_SendSerial extends HttpServlet {
 			System.out.println("===========================send"+new String(bytes));
 			sw.writeCommand(bytes);
 			U.p(response,"data send success");
-		}
+		}else
+			U.p(response,"data send status is not PLC_STATUS_PLAY_VIDEO");
 	}
 
 	
