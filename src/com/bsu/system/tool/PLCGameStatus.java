@@ -21,8 +21,7 @@ public class PLCGameStatus {
 	private static PLCGameStatus instance = null;
 	private PLCGameStatus(){
 		url = U.properties.getProperty("androidpnUrl");
-//		user = U.properties.getProperty("androidpnUser");
-		user = "";										//此处不添用户名默认为向所有在线用户发送
+		user = U.properties.getProperty("androidpnUser");	//此处一定要指定用户
 	}
 	public static PLCGameStatus getInstance(){
 		if(instance==null)

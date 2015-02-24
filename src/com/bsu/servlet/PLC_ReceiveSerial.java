@@ -127,8 +127,7 @@ public class PLC_ReceiveSerial extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		plcgs.set_PLC_STATUS_BED(true);
-		System.out.println("PLC_ReceiveSerial is doGet");
+		doPost(request,response);
 	}
 
 	/**
@@ -136,6 +135,8 @@ public class PLC_ReceiveSerial extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		plcgs.set_PLC_STATUS_BED(true);
+		System.out.println("PLC_ReceiveSerial is doGet");
 	}
 
 }
